@@ -1,6 +1,6 @@
 import { getHttpEndpoint } from '@orbs-network/ton-access';
 import { TonClient } from 'ton';
-import { useAsyncInitialize } from './useAsyncinitialize';
+import { useAsyncInitialize } from './useAsyncInitialize';
 
 export function useTonClient() {
   return useAsyncInitialize(
