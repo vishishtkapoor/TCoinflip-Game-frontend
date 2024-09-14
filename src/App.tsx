@@ -54,7 +54,7 @@ function App() {
             <a onClick={() => {
               sendIncrement()
             }}>
-            Increment by 1
+            Increment by 5
             </a>
   )
         }
