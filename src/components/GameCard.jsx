@@ -4,8 +4,8 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import io from "socket.io-client";
 import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 import { toNano, Address } from "@ton/core";
-import dotenv from 'dotenv';
-dotenv.config();
+import 'dotenv/config'
+
 
 export const Box = ({ player1, player2, status, wager, gameId }) => {
   const [socket, setSocket] = useState(null);

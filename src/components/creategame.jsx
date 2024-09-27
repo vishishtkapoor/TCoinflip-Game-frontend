@@ -3,8 +3,8 @@ import io from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 import { toNano, Address } from "@ton/core";
-import dotenv from 'dotenv';
-dotenv.config();
+import 'dotenv/config'
+
 
 // eslint-disable-next-line react/prop-types
 const CreateGame = ({ onGameCreated }) => {

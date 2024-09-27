@@ -4,8 +4,8 @@ import { Box } from '../components/GameCard'; // Adjust the path to your GameCar
 import User from '../components/user';
 import io from 'socket.io-client';
 import '../App.css';
-import dotenv from 'dotenv';
-dotenv.config();
+import 'dotenv/config'
+
 
 function Home() {
   const [gameData, setGameData] = useState([]);
