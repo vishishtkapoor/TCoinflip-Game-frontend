@@ -2,7 +2,7 @@ import React from 'react';
 
 const LeaderboardList = ({ leaderboard }) => {
     return (
-        <div className="relative w-[342px] mx-auto rounded-lg bg-[#a55ae20a] rounded-lg border border-solid border-[#a55ae21a] backdrop-blur-[3.6px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(3.6px)_brightness(100%)]">
+        <div className="relative w-[342px] mx-auto bg-[#a55ae20a] rounded-lg border border-solid border-[#a55ae21a] backdrop-blur-[3.6px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(3.6px)_brightness(100%)]">
             <div className="leaderboard-list divide-y divide-[#a55ae21a] [font-family:'Poppins-Regular',Helvetica] font-normal text-white text-base tracking-[0] leading-[normal] whitespace-nowrap ">
                 {leaderboard.map((entry, index) => (
                     <div

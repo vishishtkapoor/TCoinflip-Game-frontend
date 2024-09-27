@@ -24,11 +24,11 @@ function App() {
     <Router>
       <div className="App">
         <TonConnectButton
-          style={{ position: "fixed", top: "10px", right: "20px" }}
+          style={{ position: "fixed", top: "10px", right: "10px" }}
         />
         {connected && (
           <div>
-            <div>
+            <div className='fixed top-2.5 hidden'>
                 <span>User-friendly address: {userFriendlyAddress}</span>
                 <span>Raw address: {rawAddress}</span>
               </div>
