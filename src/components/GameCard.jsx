@@ -25,7 +25,7 @@ export const Box = ({ player1, player2, status, wager, gameId }) => {
       return;
     }
     console.log("Initializing socket connection...join");
-    const newSocket = io(process.env.BackendURI, {
+    const newSocket = io(import.meta.env.VITE_BackendURI, {
       transports: ["websocket"],
     });
     newSocket.on("connect", () => {

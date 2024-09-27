@@ -14,7 +14,7 @@ function Home() {
   // Establish WebSocket connection
   useEffect(() => {
     // Create socket connection
-    const newSocket = io(process.env.BackendURI, {
+    const newSocket = io(import.meta.env.VITE_BackendURI, {
       transports: ['websocket'],
     });
     setSocket(newSocket);
