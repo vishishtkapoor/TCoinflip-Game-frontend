@@ -24,7 +24,7 @@ const CreateGame = ({ onGameCreated }) => {
   // Initialize socket connection
   const initializeSocket = useCallback(() => {
     console.log("Initializing socket connection...in create");
-    console.log(process.env.BackendURI);
+    console.log(import.meta.env.BackendURI);
     const newSocket = io(process.env.BackendURI, {
       transports: ["websocket"],
     });

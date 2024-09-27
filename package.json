@@ -17,6 +17,7 @@
     "buffer": "^6.0.3",
     "dotenv": "^16.4.5",
     "framer-motion": "^11.5.6",
+    "process": "^0.11.10",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.2",
