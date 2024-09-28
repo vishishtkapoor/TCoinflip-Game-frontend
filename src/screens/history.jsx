@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import User from '../components/user';
+import ReferralSystem from '../components/referal';
 
 const History = ({ userId }) => {
     const [historyData, setHistoryData] = useState([]);
@@ -26,7 +27,10 @@ const History = ({ userId }) => {
             <div className="w-full text-white h-full font-bold flex flex-col max-w-xs">
                 <div className="flex flex-col items-center pt-4 pb-28">
                     <User />
-                    <div className="mt-6 pt-12 pb-20 w-auto">
+                    <div>
+                        <ReferralSystem />
+                    </div>
+                    <div className="pt-8 pb-20 w-auto">
                         <h1 className="text-2xl font-bold mb-4">History</h1>
 
                         {loading ? (

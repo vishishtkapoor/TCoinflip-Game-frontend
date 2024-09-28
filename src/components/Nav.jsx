@@ -37,7 +37,7 @@ const NavBar = () => {
                     <img
                         className="w-24 h-6 mt-2"
                         alt="History"
-                        src="/assets/icons/icon set (1).svg"
+                        src="/assets/icons/iconamoon_profile-circle-light.svg"
                     />
                 </button>
             </Link>
