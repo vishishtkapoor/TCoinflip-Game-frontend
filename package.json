@@ -26,7 +26,7 @@
     "react-router-dom": "^6.26.2",
     "rollup-plugin-polyfill-node": "^0.13.0",
     "socket.io-client": "^4.7.5",
-    "tweetnacl-util": "0.14.1",
+    "tweetnacl-util": "0.15.1",
     "vite-plugin-node-polyfills": "^0.22.0"
   },
   "devDependencies": {
