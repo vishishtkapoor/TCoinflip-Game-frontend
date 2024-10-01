@@ -1,90 +1,44 @@
-import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { TonConnectButton } from "@tonconnect/ui-react";
-import { useMainContract } from "./hooks/useMainContract.ts";
 import { useTonConnect } from "./hooks/useTonConnect.ts";
-import WebApp from "@twa-dev/sdk";
+import { useTonAddress } from "@tonconnect/ui-react";
+import Home from './screens/home.tsx';
+import NavBar from './components/Nav.tsx';
+import Create from './screens/create.tsx';
+import Leaderboard from './screens/Leaderboard.tsx';
 
 
 function App() {
-  const {
-    contract_address,
-    counter_value,
-    
-    contract_balance,
-    sendIncrement,
-    sendDeposit,
-    sendWithdrawalRequest
-  } = useMainContract();
-  
   const { connected } = useTonConnect();
 
-  const showAlert = () => {
-    WebApp.showAlert("Hey there!");
-  }
+  const userFriendlyAddress = useTonAddress();
+
+  const rawAddress = useTonAddress(false);
+
 
   return (
-    <div>
-      <div>
-        <TonConnectButton />
-      </div>
-      <div>
-        <div className='Card'>
-          <b>{WebApp.platform}</b>
-          <b>Our contract Address</b>
-          <div className='Hint'>{contract_address?.slice(0, 30) + "..."}</div>
-          <b>Our contract Balance</b>
-          {contract_balance && <div className='Hint'>{contract_balance}</div>}
-        </div>
+    <Router>
+    <div className="App">
+        <TonConnectButton
+          style={{ position: "fixed", top: "10px", right: "10px" }}
+        />
+        {connected && (
+          <div>
+            <div className='fixed top-2.5 hidden'>
+              <span>User-friendly address: {userFriendlyAddress}</span>
+              <span>Raw address: {rawAddress}</span>
+            </div>
+          </div>
+        )}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path='/Create' element={<Create />} />
+          <Route path='/Leaderboard' element={<Leaderboard />} />
 
-        <div className='Card'>
-          <b>Counter Value</b>
-          <div>{counter_value ?? "Loading..."}</div>
-        </div>
-
-        <a onClick={() => {
-          showAlert();
-        }}>
-          show alert
-        </a>
-
-        <br/>
-
-        {
-          connected && (
-            <a onClick={() => {
-              sendIncrement()
-            }}>
-            Increment by 5
-            </a>
-  )
-        }
-        <br/>
-
-        {
-          connected && (
-            <a onClick={() => {
-              sendDeposit()
-            }}>
-            deposit 1 ton
-            </a>
-  )
-        }
-
-<br/>
-
-{
-  connected && (
-    <a onClick={() => {
-      sendWithdrawalRequest()
-    }}>
-    withdraw 0.7 ton
-    </a>
-)
-}
-
-
-      </div>
+        </Routes>
+        <NavBar />
     </div>
+    </Router>
   );
 }
 
