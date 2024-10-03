@@ -14,6 +14,7 @@
     "@telegram-apps/sdk": "^1.1.3",
     "@ton/core": "^0.58.1",
     "@ton/crypto": "^3.3.0",
+    "@tonconnect/protocol": "^2.2.6",
     "@tonconnect/ui-react": "^2.0.9",
     "buffer": "^6.0.3",
     "dotenv": "^16.4.5",
