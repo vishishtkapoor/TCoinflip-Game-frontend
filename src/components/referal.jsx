@@ -64,7 +64,7 @@ const ReferralSystem = () => {
         }
 
         const utils = initUtils();
-        const inviteLink = `https://yourapp.com/invite?startapp=${userId}`;
+        const inviteLink = `https://t.me/koinfliptonbot/flx=${userId}`;
         const shareText = `Join me on this awesome Coin flip Telegram mini app!`;
         const fullUrl = `https://t.me/share/url?url=${encodeURIComponent(inviteLink)}&text=${encodeURIComponent(shareText)}`;
         utils.openTelegramLink(fullUrl);
@@ -79,7 +79,7 @@ const ReferralSystem = () => {
     };
 
     const handleCopyLink = () => {
-        const inviteLink = `https://yourapp.com/invite?startapp=${userId}`;
+        const inviteLink = `https://t.me/koinfliptonbot/flx=${userId}`;
         navigator.clipboard.writeText(inviteLink);
 
         // Show custom alert
