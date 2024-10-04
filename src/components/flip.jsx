@@ -1,9 +1,8 @@
-
-import { useState, useCallback } from "react"
-import { motion, useAnimation } from "framer-motion"
+import { useState, useCallback, useEffect } from "react";
+import { motion, useAnimation } from "framer-motion";
 
 const Confetti = ({ isActive }) => {
-    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff']
+    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
 
     return (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -27,33 +26,43 @@ const Confetti = ({ isActive }) => {
                 />
             ))}
         </div>
-    )
-}
+    );
+};
 
-export default function Flip() {
-    const [isHeads, setIsHeads] = useState(true)
-    const [isFlipping, setIsFlipping] = useState(false)
-    const [showConfetti, setShowConfetti] = useState(false)
-    const controls = useAnimation()
+export default function Flip({ userChoice, onFlipResult }) {
+    const [isHeads, setIsHeads] = useState(true);
+    const [isFlipping, setIsFlipping] = useState(false);
+    const [showConfetti, setShowConfetti] = useState(false);
+    const controls = useAnimation();
 
     const flipCoin = useCallback(async () => {
         if (!isFlipping) {
-            setIsFlipping(true)
-            setShowConfetti(false)
+            setIsFlipping(true);
+            setShowConfetti(false);
             await controls.start({
                 rotateY: 1800,
                 transition: {
                     duration: 2,
                     ease: [0.645, 0.045, 0.355, 1.000],
                 },
-            })
-            setIsHeads(Math.random() < 0.5)
-            setIsFlipping(false)
-            controls.set({ rotateY: 0 })
-            setShowConfetti(true)
-            setTimeout(() => setShowConfetti(false), 1000)
+            });
+            const result = Math.random() < 0.5; // True = Heads, False = Tails
+            setIsHeads(result);
+            setIsFlipping(false);
+            controls.set({ rotateY: 0 });
+            setShowConfetti(true);
+
+            // Compare the result with user's choice and send it back to parent
+            const hasWon = userChoice === (result ? 'heads' : 'tails');
+            onFlipResult(hasWon);
+
+            setTimeout(() => setShowConfetti(false), 1000);
         }
-    }, [isFlipping, controls])
+    }, [isFlipping, controls, userChoice, onFlipResult]);
+
+    useEffect(() => {
+        flipCoin(); // Automatically trigger the flip from backend instead of click
+    }, [flipCoin]);
 
     return (
         <div className="flex items-start pt-6 justify-center h-60 rounded-md bg-gradient-to-r perspective-1000">
@@ -61,7 +70,6 @@ export default function Flip() {
                 <motion.div
                     className="w-48 h-48 cursor-pointer"
                     animate={controls}
-                    onClick={flipCoin}
                     style={{ transformStyle: "preserve-3d" }}
                 >
                     <div className="absolute w-full h-full rounded-full bg-yellow-400 flex items-center justify-center shadow-lg"
@@ -102,5 +110,5 @@ export default function Flip() {
                 <Confetti isActive={showConfetti} />
             </div>
         </div>
-    )
+    );
 }

@@ -17,6 +17,7 @@
     "@tonconnect/protocol": "^2.2.6",
     "@tonconnect/ui-react": "^2.0.9",
     "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.0",
     "dotenv": "^16.4.5",
     "framer-motion": "^11.5.6",
     "patch-package": "^8.0.0",
