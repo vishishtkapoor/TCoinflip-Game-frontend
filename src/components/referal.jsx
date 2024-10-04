@@ -64,8 +64,8 @@ const ReferralSystem = () => {
         }
 
         const utils = initUtils();
-        const inviteLink = `https://yourapp.com/invite?startapp=${userId}`;
-        const shareText = `Join me on this awesome Telegram mini app!`;
+        const inviteLink = `https://t.me/Botbaibot/flipper=${userId}`;
+        const shareText = `Join me on this awesome CoinFlip Telegram mini app!`;
         const fullUrl = `https://t.me/share/url?url=${encodeURIComponent(inviteLink)}&text=${encodeURIComponent(shareText)}`;
         utils.openTelegramLink(fullUrl);
 
@@ -79,7 +79,7 @@ const ReferralSystem = () => {
     };
 
     const handleCopyLink = () => {
-        const inviteLink = `https://yourapp.com/invite?startapp=${userId}`;
+        const inviteLink = `https://t.me/Botbaibot/flipper=${userId}`;
         navigator.clipboard.writeText(inviteLink);
 
         // Show custom alert
