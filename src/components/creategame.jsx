@@ -2,11 +2,8 @@ import React, { useState, useEffect, useCallback } from "react";
 import io from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
-import { toNano, Address } from "ton-core";
-import 'dotenv/config'
+import { toNano } from "ton-core";
 
-
-// eslint-disable-next-line react/prop-types
 const CreateGame = ({ onGameCreated }) => {
   const [wager, setWager] = useState("");
   const [choice, setChoice] = useState("");
@@ -16,16 +13,17 @@ const CreateGame = ({ onGameCreated }) => {
   const [connected, setConnected] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [playerJoined, setPlayerJoined] = useState(false);
-  const [tonConnectUI, setOptions] = useTonConnectUI();
+  const [tonConnectUI] = useTonConnectUI();
 
   const navigate = useNavigate();
   const userFriendlyAddress = useTonAddress();
   const to = "EQAp0UrZiz0KEEdHZ2EbXbAuaNX02IuLuNVH3tFq6YZ8ILVL"; //flip wallet address
+
   // Initialize socket connection
   const initializeSocket = useCallback(() => {
     console.log("Initializing socket connection...in create");
-    console.log(import.meta.env.VITE_BackendURI);
-    const newSocket = io(import.meta.env.VITE_BackendURI, {
+
+    const newSocket = io("http://localhost:4000", {
       transports: ["websocket"],
     });
     setSocket(newSocket);
@@ -84,7 +82,7 @@ const CreateGame = ({ onGameCreated }) => {
     setLoading(true);
 
     const gameData = {
-      player1: userFriendlyAddress, // Replace with actual player data
+      player1: userFriendlyAddress,
       wager: wager,
       choice: choice,
     };
@@ -93,16 +91,12 @@ const CreateGame = ({ onGameCreated }) => {
       validUntil: Math.floor(Date.now() / 1000) + 60,
       messages: [
         {
-          address: to, // destination address
-          amount: toNano(wager).toString(), //toString(toNano(gameData.wager)), //Toncoin in nanotons
+          address: to,
+          amount: toNano(wager).toString(),
         },
       ],
     };
-    console.log(transaction.messages.amount);
-    console.log(toNano(wager).toString());
-    console.log("sender address:", userFriendlyAddress);
 
-    console.log("Emitting createGame event with data:", gameData);
     try {
       await tonConnectUI.sendTransaction(transaction);
 
@@ -113,7 +107,6 @@ const CreateGame = ({ onGameCreated }) => {
           setGameId(response.gameId);
           onGameCreated({ ...gameData, gameId: response.gameId });
 
-          // Ensure socket stays connected when navigating
           navigate(`/game/${response.gameId}`, { replace: true });
         } else {
           setErrorMessage("Failed to create game!");
@@ -121,16 +114,17 @@ const CreateGame = ({ onGameCreated }) => {
       });
     } catch (error) {
       console.error("Transaction failed:", error);
+      setLoading(false);
     }
   };
 
   const handleChoiceSelection = (selectedChoice) => {
     setChoice(selectedChoice);
-    setErrorMessage(""); // Clear any previous errors
+    setErrorMessage("");
   };
 
   return (
-    <div className="w-full max-w-md p-6 bg-[#a55ae20a] rounded-lg border border-solid border-[#a55ae21a] backdrop-blur-[3.6px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(3.6px)_brightness(100%)]">
+    <div className="w-full max-w-md p-6 bg-[#a55ae20a] rounded-lg border border-solid border-[#a55ae21a] backdrop-blur-[3.6px]">
       <h2 className="text-2xl font-semibold mb-4">Create a Game</h2>
 
       <div className="mb-4">
@@ -152,17 +146,15 @@ const CreateGame = ({ onGameCreated }) => {
         </label>
         <div className="flex space-x-4">
           <button
-            className={`w-full py-2 ${
-              choice === "heads" ? "bg-[#d0bcff]" : "bg-[#d0bcff80]"
-            } hover:bg-[#b09ad4] text-[#381e72] font-semibold rounded-md transition duration-200`}
+            className={`w-full py-2 ${choice === "heads" ? "bg-[#d0bcff]" : "bg-[#d0bcff80]"
+              } hover:bg-[#b09ad4] text-[#381e72] font-semibold rounded-md transition duration-200`}
             onClick={() => handleChoiceSelection("heads")}
           >
             Heads
           </button>
           <button
-            className={`w-full py-2 ${
-              choice === "tails" ? "bg-[#d0bcff]" : "bg-[#d0bcff80]"
-            } hover:bg-[#b09ad4] text-[#381e72] font-semibold rounded-md transition duration-200`}
+            className={`w-full py-2 ${choice === "tails" ? "bg-[#d0bcff]" : "bg-[#d0bcff80]"
+              } hover:bg-[#b09ad4] text-[#381e72] font-semibold rounded-md transition duration-200`}
             onClick={() => handleChoiceSelection("tails")}
           >
             Tails
