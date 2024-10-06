@@ -12,7 +12,6 @@ function useQuery() {
 function Home() {
   const [gameData, setGameData] = useState([]);
   const [socket, setSocket] = useState(null);
-  const [userData, setUserData] = useState(null);
 
   const query = useQuery(); // Access the query parameters
   const inviteCode = query.get("code"); // Get the "start" parameter from the URL
@@ -26,7 +25,6 @@ function Home() {
     if (initData) {
       // Assuming initData contains user data
       console.log("User data from Telegram:", initDataUnsafe.user);
-      setUserData(initDataUnsafe.user); // Store user data in state
     } else {
       console.log("Telegram WebApp not found");
     }
