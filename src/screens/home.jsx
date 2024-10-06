@@ -5,7 +5,6 @@ import User from "../components/user";
 import io from "socket.io-client";
 import "../App.css";
 import "dotenv/config";
-import { InitData } from "@telegram-apps/sdk";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -19,7 +18,6 @@ function Home() {
   const inviteCode = query.get("code"); // Get the "start" parameter from the URL
 
   console.log("inviteCode:", inviteCode);
-  console.log("userData: ", InitData);
   if (window.Telegram && window.Telegram.WebApp) {
     // Get user data from Telegram WebApp if available
     const initData = window.Telegram.WebApp.initData;
