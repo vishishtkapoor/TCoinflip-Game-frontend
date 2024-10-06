@@ -12,6 +12,7 @@ function useQuery() {
 function Home() {
   const [gameData, setGameData] = useState([]);
   const [socket, setSocket] = useState(null);
+  
 
   const query = useQuery(); // Access the query parameters
   const inviteCode = query.get("code"); // Get the "start" parameter from the URL
