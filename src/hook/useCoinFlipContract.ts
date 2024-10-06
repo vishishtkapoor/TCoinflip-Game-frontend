@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { CoinFlip } from "../contracts/CoinFlip";
 import { useTonClient } from "./useTonClient";
 import { useAsyncInitialize } from "./useAsyncInitialize";
-import { Address, OpenedContract } from "@ton/core";
-import { toNano } from "@ton/core";
+import { Address, OpenedContract } from "ton-core";
+import { toNano } from "ton-core";
 import { useTonConnect } from "./useTonConnect";
 
 export function useCoinFlipContract(

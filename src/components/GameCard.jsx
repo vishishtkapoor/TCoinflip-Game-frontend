@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback, useRef } from "react";
 import io from "socket.io-client";
 import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
-import { toNano, Address } from "@ton/core";
+import { toNano, Address } from "ton-core";
 import 'dotenv/config'
 
 

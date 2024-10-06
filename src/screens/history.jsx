@@ -9,7 +9,7 @@ const History = ({ userId }) => {
     useEffect(() => {
         const fetchHistoryData = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/history/${userId}`);
+                const response = await fetch(`import.meta.env.VITE_BackendURI/history/${userId}`);
                 const data = await response.json();
                 setHistoryData(data);
             } catch (error) {
