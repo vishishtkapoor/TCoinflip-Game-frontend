@@ -1,37 +1,60 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Box } from '../components/GameCard'; // Adjust the path to your GameCard component
-import User from '../components/user';
-import io from 'socket.io-client';
-import '../App.css';
-import 'dotenv/config'
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Box } from "../components/GameCard"; // Adjust the path to your GameCard component
+import User from "../components/user";
+import io from "socket.io-client";
+import "../App.css";
+import "dotenv/config";
+import { InitData } from "@telegram-apps/sdk";
 
-
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 function Home() {
   const [gameData, setGameData] = useState([]);
   const [socket, setSocket] = useState(null);
+  const [userData, setUserData] = useState(null);
+
+  const query = useQuery(); // Access the query parameters
+  const inviteCode = query.get("code"); // Get the "start" parameter from the URL
+
+  console.log("inviteCode:", inviteCode);
+  console.log("userData: ", InitData);
+  if (window.Telegram && window.Telegram.WebApp) {
+    // Get user data from Telegram WebApp if available
+    const initData = window.Telegram.WebApp.initData;
+    const initDataUnsafe = window.Telegram.WebApp.initDataUnsafe;
+
+    if (initData) {
+      // Assuming initData contains user data
+      console.log("User data from Telegram:", initDataUnsafe.user);
+      setUserData(initDataUnsafe.user); // Store user data in state
+    } else {
+      console.log("Telegram WebApp not found");
+    }
+  }
 
   // Establish WebSocket connection
   useEffect(() => {
     // Create socket connection
     const newSocket = io(import.meta.env.VITE_BackendURI, {
-      transports: ['websocket'],
+      transports: ["websocket"],
     });
     setSocket(newSocket);
     console.log("new socket setted in home");
     // Listen for active games
-    newSocket.on('activeGames', (games) => {
+    newSocket.on("activeGames", (games) => {
       const gameArray = Object.keys(games).map((gameId) => ({
         ...games[gameId],
         gameId,
       }));
       setGameData(gameArray);
-      console.log("got room data in home")
+      console.log("got room data in home");
     });
 
     // Cleanup on unmount
     return () => {
-      newSocket.off('activeGames');
+      newSocket.off("activeGames");
       console.log("active games socket offed");
       newSocket.close();
       console.log("socket closed in home");
@@ -45,10 +68,14 @@ function Home() {
           <User />
           <Link to="/Leaderboard">
             <button>
-              <img className="w-28 h-6 mt-2" alt="Leaderboard" src="/assets/icons/group-27@2x.png" />
+              <img
+                className="w-28 h-6 mt-2"
+                alt="Leaderboard"
+                src="/assets/icons/group-27@2x.png"
+              />
             </button>
           </Link>
-          <Link to="/Create">
+          <Link to={`/Create/?code=${inviteCode}`}>
             <button className="relative inline-block text-lg group pt-4">
               <span className="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-colors duration-300 ease-out border-2 border-gray-900 rounded-lg group-hover:text-white">
                 <span className="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
@@ -59,27 +86,27 @@ function Home() {
             </button>
           </Link>
 
-
           {/* Game Cards */}
 
           <div className="game-cards mt-6 pt-4 pb-20 w-auto">
-        {gameData.length === 0 ? (
-          <p>No active games available.</p>
-        ) : (
-          gameData.map((game) => (
-            <Box
-              key={game.gameId}
-              player1={game.player1}
-              player2={game.player2 || 'Waiting for Player 2'}
-              status={game.status}
-              wager={game.wager}
-              gameId={game.gameId}
-            />
-          ))
-        )}
+            {gameData.length === 0 ? (
+              <p>No active games available.</p>
+            ) : (
+              gameData.map((game) => (
+                <Box
+                  key={game.gameId}
+                  player1={game.player1}
+                  player2={game.player2 || "Waiting for Player 2"}
+                  status={game.status}
+                  wager={game.wager}
+                  gameId={game.gameId}
+                  inviteCode={inviteCode}
+                />
+              ))
+            )}
+          </div>
+        </div>
       </div>
-    </div>
-    </div>
     </div>
   );
 }

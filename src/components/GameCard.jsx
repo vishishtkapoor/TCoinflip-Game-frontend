@@ -7,7 +7,7 @@ import { toNano, Address } from "ton-core";
 import 'dotenv/config'
 
 
-export const Box = ({ player1, player2, status, wager, gameId }) => {
+export const Box = ({ player1, player2, status, wager, gameId, inviteCode }) => {
   const [socket, setSocket] = useState(null);
   const socketRef = useRef(null);
   const [loading, setLoading] = useState(false);

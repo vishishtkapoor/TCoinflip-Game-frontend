@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useCallback } from "react";
 import io from "socket.io-client";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 import { toNano, Address } from "ton-core";
-import 'dotenv/config'
+import "dotenv/config";
+import * as tg from '../telegram/telegram.js'
+import { InitData } from "@telegram-apps/sdk";
 
-
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 // eslint-disable-next-line react/prop-types
 const CreateGame = ({ onGameCreated }) => {
   const [wager, setWager] = useState("");
@@ -17,6 +21,15 @@ const CreateGame = ({ onGameCreated }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [playerJoined, setPlayerJoined] = useState(false);
   const [tonConnectUI, setOptions] = useTonConnectUI();
+
+  const userData = tg.initData;
+
+  console.log("userdata: ", InitData)
+
+  const query = useQuery(); // Access the query parameters
+  const inviteCode = query.get("code"); // Get the "start" parameter from the URL
+
+  console.log("inviteCode:", inviteCode);
 
   const navigate = useNavigate();
   const userFriendlyAddress = useTonAddress();
