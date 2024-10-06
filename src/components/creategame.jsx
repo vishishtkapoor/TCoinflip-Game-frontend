@@ -4,8 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 import { toNano, Address } from "ton-core";
 import "dotenv/config";
-import * as tg from '../telegram/telegram.js'
-import { InitData } from "@telegram-apps/sdk";
+
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -22,14 +21,28 @@ const CreateGame = ({ onGameCreated }) => {
   const [playerJoined, setPlayerJoined] = useState(false);
   const [tonConnectUI, setOptions] = useTonConnectUI();
 
-  const userData = tg.initData;
-
-  console.log("userdata: ", InitData)
 
   const query = useQuery(); // Access the query parameters
   const inviteCode = query.get("code"); // Get the "start" parameter from the URL
 
   console.log("inviteCode:", inviteCode);
+
+  if (window.Telegram && window.Telegram.WebApp) {
+    // Get user data from Telegram WebApp if available
+    const initData = window.Telegram.WebApp.initData;
+    const initDataUnsafe = window.Telegram.WebApp.initDataUnsafe;
+
+    if (initData) {
+      // Assuming initData contains user data
+      console.log("User data from Telegram:", initDataUnsafe.user);
+    } else {
+      console.log("Telegram WebApp not found");
+    }
+  }
+  const telegramId = window.Telegram.WebApp.initDataUnsafe.user.id;
+  const telegramUserName = window.Telegram.WebApp.initDataUnsafe.user.username;
+  console.log(telegramId, telegramUserName);
+
 
   const navigate = useNavigate();
   const userFriendlyAddress = useTonAddress();
