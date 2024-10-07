@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { initUtils } from '@telegram-apps/sdk';
 import CustomAlert from './customalert';
 
@@ -13,7 +12,7 @@ const ReferralSystem = () => {
     const [alertMessage, setAlertMessage] = useState(''); // State for custom alert message
     const [showAlert, setShowAlert] = useState(false); // State for alert visibility
     const inviteCode = "qwer";
-    const referralLink = `https://tcoin-flip-frontend.vercel.app/?code=${inviteCode}`;
+    const referralLink = `t.me/tcoin-flip-frontend.vercel.app/?code=${inviteCode}`;
     const shareLink = `https://t.me/share/url?url=${referralLink}`;
 
     useEffect(() => {
