@@ -27,22 +27,20 @@ const CreateGame = ({ onGameCreated }) => {
 
   console.log("inviteCode:", inviteCode);
 
-  if (window.Telegram && window.Telegram.WebApp) {
-    // Get user data from Telegram WebApp if available
-    const initData = window.Telegram.WebApp.initData;
-    const initDataUnsafe = window.Telegram.WebApp.initDataUnsafe;
+  const tg = window.Telegram.WebApp;
 
-    if (initData) {
-      // Assuming initData contains user data
-      console.log("User data from Telegram:", initDataUnsafe.user);
-    } else {
-      console.log("Telegram WebApp not found");
-    }
-  }
-  const telegramId = window.Telegram.WebApp.initDataUnsafe.user.id;
-  const telegramUserName = window.Telegram.WebApp.initDataUnsafe.user.username;
-  console.log(telegramId, telegramUserName);
+// Get user data
+const userData = tg.initDataUnsafe.user;
 
+// Check if user data is available
+if (userData) {
+  console.log("User ID: ", userData.id);
+  console.log("First Name: ", userData.first_name);
+  console.log("Last Name: ", userData.last_name);
+  console.log("Username: ", userData.username);
+} else {
+  console.log("No user data available");
+}
 
   const navigate = useNavigate();
   const userFriendlyAddress = useTonAddress();
