@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { initUtils } from '@telegram-apps/sdk';
 import CustomAlert from './customalert';
+import { Link } from 'react-router-dom';
 
 const ReferralSystem = () => {
     const [referrals, setReferrals] = useState([]);
