@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+/* eslint-disable no-unused-vars */
+import { useState, useEffect,useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Box } from "../components/GameCard"; // Adjust the path to your GameCard component
 import User from "../components/user";
@@ -12,10 +13,9 @@ function useQuery() {
 function Home() {
   const [gameData, setGameData] = useState([]);
   const [socket, setSocket] = useState(null);
-  const [userName, setUserName] = useState(null);
-  const [userId, setUserId] = useState(null);
   
-
+  var userName;
+  var userId;
   const query = useQuery(); // Access the query parameters
   const inviteCode = query.get("code"); // Get the "start" parameter from the URL
 
@@ -29,9 +29,9 @@ function Home() {
       // Assuming initData contains user data
       console.log("User data from Telegram:", initDataUnsafe.user);
       console.log("userName:", initDataUnsafe.user.username);
-      setUserName(initDataUnsafe.user.username);
+      userName = initDataUnsafe.user.username;
       console.log("userId:", initDataUnsafe.user.id);
-      setUserId(initDataUnsafe.user.id);
+      userId = initDataUnsafe.user.id;
     } else {
       console.log("Telegram WebApp not found");
     }
