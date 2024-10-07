@@ -36,7 +36,7 @@ const User = () => {
                     src="https://c.animaapp.com/yhNCsQCB/img/group-16@2x.png"
                 />
                 <div className="ml-1 [font-family:'Poppins-Regular',Helvetica] font-normal text-white text-xs tracking-[0] leading-[normal] whitespace-nowrap">
-                    John Doe
+                {userName.current}
                 </div>
             </div >
             </div>
