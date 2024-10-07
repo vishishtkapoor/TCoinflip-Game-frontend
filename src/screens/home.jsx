@@ -68,9 +68,7 @@ function Home() {
     <div className="bg-white overflow-auto h-screen [background:linear-gradient(180deg,rgb(21.31,10.04,31.08)_0%,rgb(74,0,224)_100%)] flex flex-col items-center">
       <div className="w-full text-white h-full font-bold flex flex-col max-w-xs">
         <div className="flex flex-col items-center pt-4">
-          <User 
-            userName = {userName}
-          />
+          <User/>
           <Link to="/Leaderboard">
             <button>
               <img
