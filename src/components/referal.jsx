@@ -57,25 +57,28 @@ const ReferralSystem = () => {
     }, [userId, startParam]);
 
     const handleInviteFriend = () => {
-        if (!canRefer) {
-            setAlertMessage('You can only refer one user per day.');
-            setShowAlert(true);
-            return;
-        }
+        const inviteCode = "qwer";
+        const referralLink = `https://tcoin-flip-frontend.vercel.app/?code=${inviteCode}`;
+        window.location.href = `https://t.me/share/url?url=${referralLink}`; // Change to your desired URL
+        // if (!canRefer) {
+        //     setAlertMessage('You can only refer one user per day.');
+        //     setShowAlert(true);
+        //     return;
+        // }
 
-        const utils = initUtils();
-        const inviteLink = `https://yourapp.com/invite?startapp=${userId}`;
-        const shareText = `Join me on this awesome Telegram mini app!`;
-        const fullUrl = `https://t.me/share/url?url=${encodeURIComponent(inviteLink)}&text=${encodeURIComponent(shareText)}`;
-        utils.openTelegramLink(fullUrl);
+        // const utils = initUtils();
+        // const inviteLink = `https://yourapp.com/invite?startapp=${userId}`;
+        // const shareText = `Join me on this awesome Telegram mini app!`;
+        // const fullUrl = `https://t.me/share/url?url=${encodeURIComponent(inviteLink)}&text=${encodeURIComponent(shareText)}`;
+        // utils.openTelegramLink(fullUrl);
 
-        // Update last referral date in localStorage
-        localStorage.setItem('lastReferralDate', new Date().toISOString());
-        setCanRefer(false); // Update state to prevent further referrals today
+        // // Update last referral date in localStorage
+        // localStorage.setItem('lastReferralDate', new Date().toISOString());
+        // setCanRefer(false); // Update state to prevent further referrals today
 
-        // Show custom alert
-        setAlertMessage('Invite link copied to clipboard!');
-        setShowAlert(true);
+        // // Show custom alert
+        // setAlertMessage('Invite link copied to clipboard!');
+        // setShowAlert(true);
     };
 
     const handleCopyLink = () => {

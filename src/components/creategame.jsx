@@ -35,8 +35,6 @@ const userData = tg.initDataUnsafe.user;
 // Check if user data is available
 if (userData) {
   console.log("User ID: ", userData.id);
-  console.log("First Name: ", userData.first_name);
-  console.log("Last Name: ", userData.last_name);
   console.log("Username: ", userData.username);
 } else {
   console.log("No user data available");
@@ -109,6 +107,9 @@ if (userData) {
 
     const gameData = {
       player1: userFriendlyAddress, // Replace with actual player data
+      tgId : userData.id,
+      tgUserName: userData.username,
+      invitedCode: inviteCode,
       wager: wager,
       choice: choice,
     };
