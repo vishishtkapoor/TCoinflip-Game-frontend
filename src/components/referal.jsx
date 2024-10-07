@@ -3,6 +3,7 @@ import { initUtils } from '@telegram-apps/sdk';
 import CustomAlert from './customalert';
 
 
+
 const ReferralSystem = () => {
     const [referrals, setReferrals] = useState([]);
     const [referrer, setReferrer] = useState('');
@@ -12,8 +13,10 @@ const ReferralSystem = () => {
     const [canRefer, setCanRefer] = useState(true); // Flag to check if the user can refer
     const [alertMessage, setAlertMessage] = useState(''); // State for custom alert message
     const [showAlert, setShowAlert] = useState(false); // State for alert visibility
+    const tg = window.Telegram.WebApp;
 
     useEffect(() => {
+        tg.ready();
         const checkReferral = async () => {
             if (startParam && userId) {
                 try {
@@ -55,11 +58,11 @@ const ReferralSystem = () => {
         checkReferralLimit(); // Check referral limit on load
         checkReferral(); // Check referral status
         fetchReferrals(); // Fetch referral data
-    }, [userId, startParam]);
+    }, [userId, startParam, tg]);
 
     const handleInviteFriend = () => {
         const inviteCode = "qwer";
-        const referralLink = `t.me/tcoin-flip-frontend.vercel.app/?code=${inviteCode}`;
+        const referralLink = `t.me/tcoin_flip_game_bot?start=${inviteCode}`;
         window.location.href = `https://t.me/share/url?url=${referralLink}`; // Change to your desired URL
 
 
@@ -110,6 +113,7 @@ const ReferralSystem = () => {
                 >
                     Invite Friend
                 </button>
+                
                 
                 <button
                     onClick={handleCopyLink}
