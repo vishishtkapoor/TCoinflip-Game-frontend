@@ -3,12 +3,12 @@ import React from "react";
 
 // Get user data
 
-const User = ({userName}) => {
+const User = () => {
     return (
         <div className='pt-10 pb-4'>
             {/* Title */}
             < div className="w-full h-auto text-center bg-[inherit] text-white font-bold text-3xl leading-tight [font-family:'Poppins',Helvetica] tracking-normal" >
-                {userName}
+                User Name
             </div >
 
             {/* Profile Image and Name */}
