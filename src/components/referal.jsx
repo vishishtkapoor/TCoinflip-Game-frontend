@@ -102,9 +102,9 @@ const ReferralSystem = () => {
 
     return (
         <div className="w-full max-w-md">
-            {referrer && (
+            {/* {referrer && (
                 <p className="text-green-500 mb-4">You were referred by user {referrer}</p>
-            )}
+            )} */}
             <div className="flex flex-col space-y-4">
                 <button
                     onClick={handleInviteFriend}
@@ -115,12 +115,12 @@ const ReferralSystem = () => {
                 </button>
                 
                 
-                <button
+                {/* <button
                     onClick={handleCopyLink}
                     className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                 >
                     Copy Invite Link
-                </button>
+                </button> */}
             </div>
             {showAlert && (
                 <CustomAlert
