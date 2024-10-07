@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { initUtils } from '@telegram-apps/sdk';
 import CustomAlert from './customalert';
-import { Link } from 'react-router-dom';
+
 
 const ReferralSystem = () => {
     const [referrals, setReferrals] = useState([]);
@@ -12,9 +12,6 @@ const ReferralSystem = () => {
     const [canRefer, setCanRefer] = useState(true); // Flag to check if the user can refer
     const [alertMessage, setAlertMessage] = useState(''); // State for custom alert message
     const [showAlert, setShowAlert] = useState(false); // State for alert visibility
-    const inviteCode = "qwer";
-    const referralLink = `t.me/tcoin-flip-frontend.vercel.app/?code=${inviteCode}`;
-    const shareLink = `https://t.me/share/url?url=${referralLink}`;
 
     useEffect(() => {
         const checkReferral = async () => {
@@ -61,9 +58,9 @@ const ReferralSystem = () => {
     }, [userId, startParam]);
 
     const handleInviteFriend = () => {
-        // const inviteCode = "qwer";
-        // const referralLink = `https://tcoin-flip-frontend.vercel.app/?code=${inviteCode}`;
-        // window.location.href = `https://t.me/share/url?url=${referralLink}`; // Change to your desired URL
+        const inviteCode = "qwer";
+        const referralLink = `t.me/tcoin-flip-frontend.vercel.app/?code=${inviteCode}`;
+        window.location.href = `https://t.me/share/url?url=${referralLink}`; // Change to your desired URL
 
 
         // if (!canRefer) {
@@ -106,18 +103,14 @@ const ReferralSystem = () => {
                 <p className="text-green-500 mb-4">You were referred by user {referrer}</p>
             )}
             <div className="flex flex-col space-y-4">
-                {/* <button
+                <button
                     onClick={handleInviteFriend}
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     disabled={!canRefer} // Disable the button if the user cannot refer
                 >
                     Invite Friend
-                </button> */}
-                <Link 
-                    href={shareLink}
-                >
-                    InviteFriends
-                </Link>
+                </button>
+                
                 <button
                     onClick={handleCopyLink}
                     className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
