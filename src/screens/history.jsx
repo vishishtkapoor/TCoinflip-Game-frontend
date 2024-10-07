@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import User from '../components/user';
 import ReferralSystem from '../components/referal';
 
-const History = ({ userId }) => {
+const History = () => {
     const [historyData, setHistoryData] = useState([]);
     const [loading, setLoading] = useState(true);
-
+    const userId = "12345";
     useEffect(() => {
         const fetchHistoryData = async () => {
             try {
