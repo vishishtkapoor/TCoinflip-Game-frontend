@@ -12,6 +12,8 @@ function useQuery() {
 function Home() {
   const [gameData, setGameData] = useState([]);
   const [socket, setSocket] = useState(null);
+  const [userName, setUserName] = useState(null);
+  const [userId, setUserId] = useState(null);
   
 
   const query = useQuery(); // Access the query parameters
@@ -27,7 +29,9 @@ function Home() {
       // Assuming initData contains user data
       console.log("User data from Telegram:", initDataUnsafe.user);
       console.log("userName:", initDataUnsafe.user.username);
+      setUserName(initDataUnsafe.user.username);
       console.log("userId:", initDataUnsafe.user.id);
+      setUserId(initDataUnsafe.user.id);
     } else {
       console.log("Telegram WebApp not found");
     }
@@ -64,7 +68,9 @@ function Home() {
     <div className="bg-white overflow-auto h-screen [background:linear-gradient(180deg,rgb(21.31,10.04,31.08)_0%,rgb(74,0,224)_100%)] flex flex-col items-center">
       <div className="w-full text-white h-full font-bold flex flex-col max-w-xs">
         <div className="flex flex-col items-center pt-4">
-          <User />
+          <User 
+            userName = {userName}
+          />
           <Link to="/Leaderboard">
             <button>
               <img
